@@ -1,0 +1,14 @@
+- Fixed: Add checks for collecting dog tags so that only one client may fire them!
+    - ToDo: Monitor this! Cannot test on my own.
+- Fixed: Add dynamic enemy difficulty!
+    - ToDo: Monitor how this performs, using the BIS Apex campaign function.
+- Fixed: Respawn 
+    - Fixed: Buggy respawn after 1st respawn
+    - Fixed: AI also respawning
+- Fixed: Respawn Loadouts
+    - Fixed: Organise Roles
+    - Fixed: Pick Icons (Do loadout icons even do anything?)
+- Fixed: Better instructions at the crash site regarding looking for the laptop
+    - ToDo: Monitor how players manage with this currently using a sound/light lure
+- ToDo: Better Steam Description
+- Fixed: Add Mod Dependencies to steam page

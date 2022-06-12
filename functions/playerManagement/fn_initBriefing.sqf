@@ -1,0 +1,4 @@
+waitUntil {!isNull player};
+player createDiaryRecord ["Diary", ["Execution", "- Find Romeo<br/>- Secure Romeo's Crew<br/>			- Bring Survivors to FOB Blanik<br/>			- Mark any KIA crewmen for pickup and collect their dog-tags<br/>- Return to FOB Blanik"]];
+player createDiaryRecord ["Diary", ["Mission", "Late last night, we lost contact with a friendly CDF Mi-17 (Callsign Romeo) somewhere between FOB Blanik and Novy Sobor. Currently we are working under the assumption that they were brought down by ChDKZ elements. Your mission is to infiltrate ChDKZ territory, trace the flight plan of Romeo and ascertain the fate of the crew. Collect the dog-tags of any KIA crewmen and mark them for collection and if there are any survivors, bring them back to FOB Blanik."]];
+player createDiaryRecord ["Diary", ["Situation", "Joing German Czech forces have been deployed to the Bystrica region of Chernarus as part of a joint NATO task force aimed at pacifying the ChDKZ insurgency."]];

@@ -1,0 +1,360 @@
+#include "configs\reinforcements\unitPool.hpp"
+#include "configs\respawn\loadouts.hpp"
+
+class cfgFunctions {
+	#include "functions.hpp"
+};
+
+author = "Bluspur";
+onLoadName = "Operation Iron Sabre";
+onLoadMission = "German and Czech forces team up to find and rescue the crew of a downed CDF Mi-17 deep within insurgent ChDKZ territory";
+
+//Respawn
+respawnOnStart = -1;
+
+class Params {
+
+	#define DAYTIMEHOUR_DEFAULT	7
+	#include "\a3\functions_f\Params\paramDaytimeHour.hpp"
+	class RespawnTickets
+	{
+		title = "Respawn Tickets:";
+		values[] = {0,4,8,12,16,20,30,40,50};
+		texts[] = {"0","4","8","12","16","20","30","40","50"};
+		default = 16;
+	};
+	class AvailableReinforcements
+	{
+		title = "Available ChDKZ Reinforcements:"
+		values[] = {1,3,5,8,10}; 
+		texts[] = {"1 Group","3 Groups","5 Groups","8 Groups","10 Groups"};
+		default = 5;
+	};
+	class DetectionTime
+	{
+		title = "How long do Radio Units wait to issue a reinforcement request?";
+		values[] = {3,6,9,12};
+		texts[] = {"3s","6s","9s","12s"};
+		default = 3;
+	};
+	class ResetTime
+	{
+		title = "How long does a reinforcement area take to reset after a successful call?"
+		values[] = {5,10,15,20,25,30};
+		texts[] = {"5 Minutes","10 Minutes","15 Minutes","20 Minutes","25 Minutes","30 Minutes"};
+		default = 10;
+	};
+};
+
+class CfgNotifications {
+	class DiscoveryStart
+	{
+		title = "Point of Interest Discovered";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIconCreated_ca.paa";
+		description = "%1";
+		sound = "scoreAdded";
+		duration = 5;
+	};
+	class DiscoveryEnd
+	{
+		title = "Point of Interest Secured";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
+		description = "%1";
+		sound = "scoreAdded";
+		duration = 5;
+	};
+	class Task
+	{
+		title = ""
+	};
+};
+
+class cfgTaskDescriptions {
+	class ObjectiveMain
+	{
+		title = "Search and Rescue";
+		description = "Last night we lost contact with a CDF Mi-17 over ChDKZ territory. Find the helicopter and bring back the crew. You may engage targets of oppertunity at your discretion.";
+		marker = "";
+	};
+	class ObjectiveEvac
+	{
+		title = "Evacuate";
+		description = "Now that the whole crew is accounted for, return with any survivors to the FOB.";
+		marker = "Marker_Feature_PlayerStart";
+	};
+};
+
+class CfgDebriefing
+{  
+	class EndWinMurderer 
+	{
+		title = "Court Martial!";
+		description = "While the mission was a success, your personal hand in the murder of friendly forces means that rather than celebrating you will spend the indefinite future inside a military prison...";
+		picture = "flag_eu";
+	}
+	class EndLoseMurderer
+	{
+		title = "Court Martial!";
+		description = "By participating in the wholesale murder of friendly CDF forces you directly contributed to the failure of the operation. After your Court Martial you will be lucky to ever see the sun again...";
+		picture = "Faction_CUP_CHDKZ";
+	}
+	class EndWinDead
+	{
+		title = "Hollow Victory";
+		description = "While the mission was a success, you didn't live to see it. We can only hope that the success of the rest of your team will ease the grief of your family...";
+		picture = "flag_eu";
+	}
+	class EndLoseDead
+	{
+		title = "Total Defeat";
+		description = "Not only did your team fail to rescue any of the lost crew, you didn't even survive to see another day. Your name will become a rallying cry for the futility of war!";
+		picture = "Faction_CUP_CHDKZ";
+	}
+	class EndWinPartial
+	{
+		title = "Victory";
+		description = "You successfully infiltrated ChDKZ territory, found the Mi-17 crew and were able to extract one of their number alive. While the loss of the other surivivor is regrettable, you did what you could!";
+		picture = "flag_eu";
+	}
+	class EndWinTotal
+	{
+		title = "Total Victory";
+		description = "You successfully infiltrated ChDKZ territory, found the Mi-17 crew and were able to extract all surviving crewmembers! This is one for the newspapers!";
+		picture = "flag_eu";
+	}
+	class EndLose
+	{
+		title = "Defeat";
+		description = "Despite your best efforts, none of the crash survivors made it home today. We can expect to have to answer some hard questions about what went wrong, but at least you escaped with your life...";
+		picture = "Faction_CUP_CHDKZ";
+	}
+};
+
+class CfgDebriefingSections
+{
+	class Evaluation
+	{
+		title = "Debriefing";
+		variable = "EvaluationText";
+	};
+};
+
+class cfgSounds {
+	sounds[] = {};
+	class RussianChatter01
+	{
+		name = "RussianChatter01";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_01.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter02
+	{
+		name = "RussianChatter02";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_02.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter03
+	{
+		name = "RussianChatter03";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_03.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter04
+	{
+		name = "RussianChatter04";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_04.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter05
+	{
+		name = "RussianChatter05";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_05.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter06
+	{
+		name = "RussianChatter06";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_06.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter07
+	{
+		name = "RussianChatter07";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_07.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter08
+	{
+		name = "RussianChatter08";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_08.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter09
+	{
+		name = "RussianChatter09";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_09.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter10
+	{
+		name = "RussianChatter10";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_10.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter11
+	{
+		name = "RussianChatter11";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_11.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter12
+	{
+		name = "RussianChatter12";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_12.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter13
+	{
+		name = "RussianChatter13";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_13.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter14
+	{
+		name = "RussianChatter14";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_14.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter15
+	{
+		name = "RussianChatter15";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_15.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter16
+	{
+		name = "RussianChatter16";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_16.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter17
+	{
+		name = "RussianChatter17";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_17.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter18
+	{
+		name = "RussianChatter18";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_18.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter19
+	{
+		name = "RussianChatter19";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_19.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter20
+	{
+		name = "RussianChatter20";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_20.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter21
+	{
+		name = "RussianChatter21";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_21.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter22
+	{
+		name = "RussianChatter22";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_22.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter23
+	{
+		name = "RussianChatter23";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_23.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter24
+	{
+		name = "RussianChatter24";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_24.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter25
+	{
+		name = "RussianChatter25";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_25.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter26
+	{
+		name = "RussianChatter26";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_26.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter27
+	{
+		name = "RussianChatter27";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_27.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter28
+	{
+		name = "RussianChatter28";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_28.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter29
+	{
+		name = "RussianChatter29";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_29.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter30
+	{
+		name = "RussianChatter30";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_30.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter31
+	{
+		name = "RussianChatter31";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_31.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter32
+	{
+		name = "RussianChatter32";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_32.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter33
+	{
+		name = "RussianChatter33";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_33.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter34
+	{
+		name = "RussianChatter34";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_34.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter35
+	{
+		name = "RussianChatter35";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_35.wss",1,1,20};
+		titles[] = {};
+	};
+	class RussianChatter36
+	{
+		name = "RussianChatter36";
+		sound[] = {"@rhsafrf\addons\rhs_s_radio\rc\rus_rc_36.wss",1,1,20};
+		titles[] = {};
+	};
+};
